@@ -13,7 +13,7 @@ the_post();
     <img src="<?php echo $imagepath[0] ?>" alt="">
     <p><?php echo get_the_date() ?> </p>
     <?php the_content(); ?>
-    
+    <?php comments_template() ?>
 </div>
 
 <?php

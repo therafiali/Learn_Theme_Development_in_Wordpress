@@ -117,4 +117,67 @@ Sure, let's break down your WordPress theme development steps into simple terms!
       </div>
       <?php get_footer(); ?>
       ```
+18. **Display Posts From Specific Category:**
+    - Create `category.php`.
+    - Create `categories using admin panel`.
+    - go to menus and add categoes in menus if you want in navbar.
+    - we will using this code in category.php
 
+    ```php
+      <?php get_header() ?> <?php
+      while (have_posts()) {
+          the_post();
+          $imagepath = wp_get_attachment_image_src(get_post_thumbnail_id(), 'large') ?>
+          <div>
+              <img src="<?php echo $imagepath[0] ?>" alt="">
+              <h2><?php the_title() ?></h2>
+              <p><?php echo get_the_date() ?> </p>
+              <p><?php the_excerpt() ?> </p>
+              <a href="<?php the_permalink(); ?>">Read more</a> </div> <?php } ?>
+        <?php echo wp_pagenavi() ?>
+        <?php get_footer() ?>
+    ```
+    - add styling for navigation
+    ```css
+      /* navbar styling */
+        .nav {
+          display: flex;
+          margin-top: 15px;
+          }  
+          .nav>li {
+          list-style: none;
+          margin: 0px 30px;
+          position: relative;
+          }  
+          .sub-menu {
+          position: absolute;
+          width: fit-content;
+          opacity: 0;
+          top: 100%;
+          background-color: #e74c3c;
+          transition: 0.3s; /* Reduced transition time */
+          }  
+        .nav>li:hover .sub-menu {
+          opacity: 1;
+          }  
+          .sub-menu li {
+          list-style: none;
+          padding: 10px;
+          }
+    ```
+19. **Add or Edit Dynamic Sidebars:**
+    - add this code in  `functions.php`
+      ```php
+        register_sidebar(
+          array(
+            'name' => 'Sidebar Location',
+            'id' => 'sidebar'
+
+          )
+        );
+      ```
+    - create widget using admin panel
+    - add this function in `index.php` :
+    ```php
+        dynamic_sidebar('sidebar');
+    ```
