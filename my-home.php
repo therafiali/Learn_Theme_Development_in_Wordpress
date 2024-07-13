@@ -4,7 +4,7 @@
 
 ?>
 string
-<body class="layout-1">
+<body <?php body_class(); ?> class="layout-1">
 	<div class="page-loader-wrapper page-loader-wrapper-2">
 		<div class="loader">
 			

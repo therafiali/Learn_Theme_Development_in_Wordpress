@@ -117,6 +117,37 @@ Sure, let's break down your WordPress theme development steps into simple terms!
       </div>
       <?php get_footer(); ?>
       ```
+
+16. **Add Comment form in Single Page:**
+    - add this function in single.php `comment_form()  `.
+    - add this class.
+    css
+    - style.css
+    <!-- add this class -->
+        .comment-form {
+          paddding: 20px
+        }
+        .comment-form label{
+          dispaly: block;
+        }
+        .comment-form textarea{
+          width : 100%
+          height: 80px
+        }
+        .comment-form input[type='text']{
+          width : 100%
+          height: 40px
+        }        
+      
+    - add more custom classes if you want
+
+17. **Display List of Comments and Form in Single Post:**
+    - add this function in single.php `comments_template()  `.
+    - add custom classes for styling.
+
+
+
+
 18. **Display Posts From Specific Category:**
     - Create `category.php`.
     - Create `categories using admin panel`.
@@ -181,3 +212,57 @@ Sure, let's break down your WordPress theme development steps into simple terms!
     ```php
         dynamic_sidebar('sidebar');
     ```
+
+18. **How to Add Sidebar File using : Get_Sidebar()**
+    - create sidebar.php 
+    - add this code in sidebar.php with your     custom classes for styling
+    ```php
+       dynamic_sidebar('sidebar');
+    ```
+    - and where need to show side bar use this function:
+    
+    ```php
+    <?php get_sidebar() ?>
+    ``` 
+
+19. **Dynamic Page Title:** 
+    - go to header.php 
+    - add this code in title tag.
+    ```php
+    <title><?php bloginfo('name'); ?>
+    <?php wp_title(); ?>
+    <?php if (is_front_page()){
+      echo " | "
+    bloginfo('description');
+    }  ?> </title>
+    ``` 
+
+20. **Custom Background:** 
+    - add this code in `functions.php` 
+    ```php
+    add_theme_support('custom-background')
+     
+    - add this code in header.php 
+    ```php
+    <body <?php body_class(); ?> >
+    ```
+    - go to admin panel and set background.
+
+
+
+19. **Create an Error 404 Page:**
+    - create file  `404.php`
+    ```php
+          <?php
+      get_header()
+      ?>
+      <div>
+          Page Not Found;
+          error 404
+      </div>
+      <?php
+      get_footer()
+      ?>
+    ```
+
+

@@ -9,7 +9,7 @@
 
 while (have_posts()) {
     the_post();
-    dynamic_sidebar('sidebar');
+  get_sidebar();
     $imagepath = wp_get_attachment_image_src(get_post_thumbnail_id(), 'large')
 ?>
     <div>
