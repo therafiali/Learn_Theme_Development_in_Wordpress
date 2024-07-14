@@ -265,4 +265,24 @@ Sure, let's break down your WordPress theme development steps into simple terms!
       ?>
     ```
 
+19. **Get Category Function:**
+    - add this line where we want to show category
+    - this line get all category data.
+    ```php
+    $cat=get_categories(array('taxonomy'=>'category'));
+    ```
+    - this code show all categories.
+    ```php
+    <?php
+      foreach ($cat as $catValue) {
+          ?>
+
+        <a href="<?php echo get_category_link($catValue->term_id); ?>">
+            <p><?php echo $catValue->name ?> (<?php echo $catValue->count ?>)</p>
+        </a>
+        <?php } ?>
+
+        ?>
+    ```
+
 

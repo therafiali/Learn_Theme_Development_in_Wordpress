@@ -1,4 +1,6 @@
-<?php get_header() ?>
+<?php get_header();
+$cat = get_categories(array('taxonomy' => 'category'));
+?>
 
 
 <br />
@@ -9,7 +11,7 @@
 
 while (have_posts()) {
     the_post();
-  get_sidebar();
+    get_sidebar();
     $imagepath = wp_get_attachment_image_src(get_post_thumbnail_id(), 'large')
 ?>
     <div>
@@ -21,6 +23,21 @@ while (have_posts()) {
 
     </div>
 <?php } ?>
+
+<br />
+<div>
+    Category Section
+</div>
+<?php
+foreach ($cat as $catValue) {
+?>
+
+    <a href="<?php echo get_category_link($catValue->term_id); ?>">
+        <p><?php echo $catValue->name ?> (<?php echo $catValue->count ?>)</p>
+    </a>
+<?php } ?>
+
+?>
 
 <?php echo wp_pagenavi() ?>
 
