@@ -296,6 +296,7 @@ Sure, let's break down your WordPress theme development steps into simple terms!
 
 19. **Create Custom Post Type:**
     - Install this Plugin `Custom Post Type Maker` and activate this.
+    - https://github.com/Graffino/Custom-Post-Type-Maker
     - Create Post type using this plugin.
     - Enable or True `Pages`,`Hirerchical`, `Query Var`, `Exclude From    Search`,`Has Archive` and `Show UI` options.
     - Set Menu Position 10.
@@ -306,11 +307,11 @@ Sure, let's break down your WordPress theme development steps into simple terms!
 19. **Wp-Query for Custom Post Type:**
     - use this where you want to show.
     ```php
-    <?php 
+      <?php 
       $wpnews = array(
         'post_type' => 'news',
         'post_status' => 'publish',
-      )
+      );
       $newsquery = new Wp_Query($wpnews);
       while($newsquery->have_posts()){
         $newsquery->the_post();
@@ -319,11 +320,12 @@ Sure, let's break down your WordPress theme development steps into simple terms!
       
         ?>
         <div class='blog-item' >
-        <img src="<?php echo $imagepath[0] ?>" />
+        <img src="<?php echo $image[0] ?>" />
         <h2><?php the_title(); ?></h2>
-        <p><?php get_the_date(); ?></p>
+        <p><?php echo get_the_date(); ?></p>
+        <p><?php the_excerpt() ?> </p>
         </div>
-      }
+      <?php }
     ?>
     ```
 
