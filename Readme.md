@@ -333,3 +333,17 @@ Sure, let's break down your WordPress theme development steps into simple terms!
     - create category using plugin from admin panel.
     `Post Types > Taxonomies > Create New Taxonomy`    
 
+19. **Use Custom Taxonomy in get_terms Function:**
+    - where you want to show use this code.
+    ```php
+        <?php 
+    $newCat = get_terms(['taxonomy'=>'tech','hide_empty'=>false]);
+    foreach ($newCat as $newCatData) {
+        ?>
+        <div>
+            <p><?php echo $newCatData->name; ?></p>
+        </div>
+    <?php
+    }
+    ?>
+    ```

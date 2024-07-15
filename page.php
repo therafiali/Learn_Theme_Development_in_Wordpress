@@ -16,6 +16,20 @@ print_r($imagepath)
 <?php the_content(); ?>
 </br>
 <div>
+    <h1>Category</h1>
+</div>
+<?php 
+$newCat = get_terms(['taxonomy'=>'tech','hide_empty'=>false]);
+foreach ($newCat as $newCatData) {
+    ?>
+    <div>
+        <p><?php echo $newCatData->name; ?></p>
+    </div>
+<?php
+}
+?>
+</br>
+<div>
     <h1>Latest News</h1>
 </div>
 <?php 
