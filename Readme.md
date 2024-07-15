@@ -284,5 +284,50 @@ Sure, let's break down your WordPress theme development steps into simple terms!
 
         ?>
     ```
+19. **Excerpt | Short Desrcription:**
+    - add this line in `functions.php`
+    ```php
+    add_post_type_support('page','excerpt');
+    ```
+    - add short description using excerpt may be this feature hide.
+    - add this code in `page.php `
+    `   <p><?php the_excerpt() ?> </p>`
 
+
+19. **Create Custom Post Type:**
+    - Install this Plugin `Custom Post Type Maker` and activate this.
+    - Create Post type using this plugin.
+    - Enable or True `Pages`,`Hirerchical`, `Query Var`, `Exclude From    Search`,`Has Archive` and `Show UI` options.
+    - Set Menu Position 10.
+    - add icons or slug icon if you want.
+    - enable in support (`Title, editor, excerpt, Featured Image`)
+    - Then Published
+
+19. **Wp-Query for Custom Post Type:**
+    - use this where you want to show.
+    ```php
+    <?php 
+      $wpnews = array(
+        'post_type' => 'news',
+        'post_status' => 'publish',
+      )
+      $newsquery = new Wp_Query($wpnews);
+      while($newsquery->have_posts()){
+        $newsquery->the_post();
+     
+      $image = wp_get_attachment_image_src(get_post_thumbnail_id(),'large');
+      
+        ?>
+        <div class='blog-item' >
+        <img src="<?php echo $imagepath[0] ?>" />
+        <h2><?php the_title(); ?></h2>
+        <p><?php get_the_date(); ?></p>
+        </div>
+      }
+    ?>
+    ```
+
+19. **Create Custom Taxonomy or Category for Custom Post Type:**
+    - create category using plugin from admin panel.
+    `Post Types > Taxonomies > Create New Taxonomy`    
 
