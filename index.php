@@ -37,7 +37,7 @@ foreach ($cat as $catValue) {
     </a>
 <?php } ?>
 
-?>
+
 
 <?php echo wp_pagenavi() ?>
 

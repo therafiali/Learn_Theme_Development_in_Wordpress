@@ -19,11 +19,18 @@ print_r($imagepath)
     <h1>Category</h1>
 </div>
 <?php 
-$newCat = get_terms(['taxonomy'=>'tech','hide_empty'=>false]);
+$newCat = get_terms(['taxonomy'=>'news_category','hide_empty'=>false,'orderby'=>'name','order'=>'ASC','number'=>3,'parent'=>0,]);
 foreach ($newCat as $newCatData) {
+   $meta_image = get_wp_term_image($newCatData->term_id); 
     ?>
     <div>
+      <?php if($meta_image!=""){?>
+
+      <img src="<?php print_r($meta_image); ?>" alt=""> <?php } ?>
+      <a href="<?php echo get_category_link($newCatData->term_id); ?>">
+
         <p><?php echo $newCatData->name; ?></p>
+      </a>
     </div>
 <?php
 }

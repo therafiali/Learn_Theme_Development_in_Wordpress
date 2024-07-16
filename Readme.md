@@ -337,7 +337,7 @@ Sure, let's break down your WordPress theme development steps into simple terms!
     - where you want to show use this code.
     ```php
         <?php 
-    $newCat = get_terms(['taxonomy'=>'tech','hide_empty'=>false]);
+        $newCat = get_terms(['taxonomy'=>'news_category','hide_empty'=>false,'orderby'=>'name','order'=>'ASC','number'=>3,'parent'=>0,]);
     foreach ($newCat as $newCatData) {
         ?>
         <div>
@@ -347,3 +347,69 @@ Sure, let's break down your WordPress theme development steps into simple terms!
     }
     ?>
     ```
+19. **Custom Taxonomy or Category Image**
+      https://wordpress.org/plugins/wp-custom-taxonomy-image/
+    - download this plugin and activate
+    - go to setting > taxonomy image > and check which category your chosse for image
+    - then go to category section and image url
+    ```php
+          <?php 
+      $newCat = get_terms(['taxonomy'=>'news_category','hide_empty'=>false,'orderby'=>'name','order'=>'ASC','number'=>3]);
+      foreach ($newCat as $newCatData) {
+        $meta_image = get_wp_term_image($newCatData->term_id); 
+          ?>
+          <div>
+            <?php if($meta_image!=""){?>
+            <img src="<?php print_r($meta_image); ?>" alt=""> <?php } ?>
+              <a href="<?php echo get_category_link($newCatData->term_id); ?>">
+
+              <p><?php echo $newCatData->name; ?></p>
+            </a>
+          </div>
+      <?php
+      }
+      ?>
+    ```
+
+
+19. **how to create separate page Custom Taxonomy or Category**
+    - create this file , file name should be start taxonomy- then your category name;
+    - for example : taxonomy-news_category.php and then use this code.
+    ```php
+      <?php get_header();
+    $catData = get_queried_object();
+    ?>
+
+    <h1><?php echo $catData->name; ?></h1>
+
+    <?php 
+          $wpnews = array(
+            'post_type' => 'news',
+            'post_status' => 'publish',
+            'tax_query' => array(
+                array(
+                    'taxonomy'=>'news_category',
+                    'field'=>'term_id',
+                    'terms'=>$catData->term_id
+                ),
+            ),);
+          $newsquery = new Wp_Query($wpnews);
+          while($newsquery->have_posts()){
+            $newsquery->the_post();
+        
+          $image = wp_get_attachment_image_src(get_post_thumbnail_id(),'large');
+          
+            ?>
+            <div class='blog-item' >
+            <img src="<?php echo $image[0] ?>" />
+            <h2><?php the_title(); ?></h2>
+            <p><?php echo get_the_date(); ?></p>
+            <p><?php the_excerpt() ?> </p>
+            </div>
+          <?php }
+        ?>
+
+
+    <?php get_footer() ?>
+    ```
+
