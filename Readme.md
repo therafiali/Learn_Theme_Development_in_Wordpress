@@ -524,7 +524,7 @@ Sure, let's break down your WordPress theme development steps into simple terms!
 
     
 19. **Insert and Taxonomy Form by User:**
-    - add this code where you want to show search bar.
+    - add this code where you want to input drom user.
     ```php
           <?php 
           
