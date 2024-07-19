@@ -69,7 +69,7 @@ Sure, let's break down your WordPress theme development steps into simple terms!
       ```
 
 11. **Custom Pages:**
-    - Create a custom template (e.g., `custom.php`).
+    - Create a custom template (e.g., `template-contact.php`).
     - Add this code at the top:
       ```php
       <?php
@@ -466,4 +466,105 @@ Sure, let's break down your WordPress theme development steps into simple terms!
     ?>
 
   ```
-  
+  19. **How to add Custom Feilds:**
+    - install advanced custom field and advanced custom field repeater
+    - create fields using acf plugin and this code where you want to show and where you want to show enter this id here
+    ```php
+    <!-- this code use only for pages -->
+    <!-- enter page id replace 14 -->
+          <?php the_field('contact_number',14) ?>;
+    ```
+    ```php
+           <!-- this code use only for posts -->
+            <?php the_field('date',get_the_id()); ?>
+    ```
+
+
+
+19. **Searching and Pagination using Wp-query:**
+    - add this code where you want to show search bar.
+    - make sure activate pagenavi plugin 
+    ```php
+    <?php 
+    $paged = get_query_var('paged') ? get_query_var('paged'):1;
+    $searchData = '';
+    if($_GET['title']!=''){
+      $searchData=$_GET['title'];
+    }
+     ?>
+    <form method="get">
+    <input type='text' placeholder='Search By Name' name='title' style='width:250px; paddding:10px' value='<?php echo $_GET['title']; ?>' />
+    <!-- <input type='hidden'  name='paged' style='width:250px; paddding:10px' value='<?php echo $paged; ?>' /> -->
+    </form>
+         <?php 
+          $wpnews = array(
+            'post_type' => 'news',
+            'post_status' => 'publish',
+            's'=>$searchData,
+            'posts_per_page'=>1,
+            'paged'=>$paged
+          );
+          $newsquery = new Wp_Query($wpnews);
+          while($newsquery->have_posts()){
+            $newsquery->the_post();
+        
+          $image = wp_get_attachment_image_src(get_post_thumbnail_id(),'large');
+          
+            ?>
+            <div class='blog-item' >
+            <img src="<?php echo $image[0] ?>" />
+            <h2><?php the_title(); ?></h2>
+            <p><?php echo get_the_date(); ?></p>
+            <p><?php the_excerpt() ?> </p>
+            </div>
+          <?php }
+            ?>
+            <?php wp_pagenavi(array('query'=>$newsquery)) ?>
+    ```
+
+    
+19. **Insert and Taxonomy Form by User:**
+    - add this code where you want to show search bar.
+    ```php
+          <?php 
+          
+          if(isset($_POST['savenews'])){
+            $id = wp_insert_post(
+              array(
+                'post_type'=>'news',
+                'post_status'=>'draft',
+                'post_title'=>$_POST['ntitle'],
+                'post_content'=>$_POST['ndesc'],
+
+              )
+            );
+            wp_set_object_terms($id, $_POST['select'],'news_category');
+            
+          }
+           ?>
+
+    ```
+
+    ```html
+         <form method="post">
+    <input style='width:250px; paddding:20px' class='formData' />
+   <div>News Title</div>
+   <div> <input type='text' name='ntitle' /></div>
+   <div>News Description</div>
+   <div>
+    <textarea  name='ndesc' ></textarea>
+   </div>
+   <select name='select' >
+    <option>Select News Category</option>
+    <?php
+     $newCat = get_terms(['taxonomy'=>'news_category','hide_empty'=>false,'orderby'=>'name','order'=>'ASC','parent'=>0,]);
+     foreach($newsCat as $newsCatData){
+      <option value='<?php echo $newsCatData->term_id ?>'><?php echo $newsCatData->name ?></option>
+     <?php }
+     ?>
+    <option></option>
+   </select>
+   <button name='savenews' >Save News</button>
+    </form>
+
+    ```

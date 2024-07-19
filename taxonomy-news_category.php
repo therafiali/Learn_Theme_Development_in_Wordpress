@@ -27,6 +27,7 @@ $catData = get_queried_object();
         <h2><?php the_title(); ?></h2>
         <p><?php echo get_the_date(); ?></p>
         <p><?php the_excerpt() ?> </p>
+        <?php the_field('date',get_the_id()); ?>
         </div>
       <?php }
     ?>
