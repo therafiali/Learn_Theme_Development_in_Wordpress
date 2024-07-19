@@ -2,8 +2,12 @@
 $cat = get_categories(array('taxonomy' => 'category'));
 ?>
 
-
 <br />
+
+    
+<br />
+
+
 
 
 <?php

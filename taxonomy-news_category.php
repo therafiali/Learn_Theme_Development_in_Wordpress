@@ -2,6 +2,7 @@
 $catData = get_queried_object();
 ?>
 
+
 <h1><?php echo $catData->name; ?></h1>
 
 <?php 

@@ -11,6 +11,12 @@
 print_r($imagepath)
 ?>
 <br/>
+
+
+
+
+
+<br/>
 <h2>Here is Description</h2>
 <p><?php the_excerpt() ?> </p>
 <?php the_content(); ?>

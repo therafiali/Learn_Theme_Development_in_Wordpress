@@ -467,7 +467,7 @@ Sure, let's break down your WordPress theme development steps into simple terms!
 
   ```
   19. **How to add Custom Feilds:**
-    - install advanced custom field and advanced custom field repeater
+    - install advanced custom field pro
     - create fields using acf plugin and this code where you want to show and where you want to show enter this id here
     ```php
     <!-- this code use only for pages -->
@@ -478,7 +478,32 @@ Sure, let's break down your WordPress theme development steps into simple terms!
            <!-- this code use only for posts -->
             <?php the_field('date',get_the_id()); ?>
     ```
+   - `Use Repeater`
+   - Create courses page for example.
+   - add repeater field in courses page using this plugin then go to courses page and enter course names. 
+   - create `template-courses.php` and activate.
+   ```php
+        <?php 
+    get_header()
 
+    //Template Name:Courses
+
+    ?>
+    <h1>Our Courses</h1>
+
+
+    <?php 
+    if(have_rows('course_details',123)){
+        while(have_rows('course_details',123)){
+            the_row();
+            ?>
+            <div> <?php echo get_sub_field('course_name',123) ?> </div>
+      <?php } }
+
+    ?>
+
+    <?php get_footer();?>
+   ```
 
 
 19. **Searching and Pagination using Wp-query:**
@@ -493,8 +518,8 @@ Sure, let's break down your WordPress theme development steps into simple terms!
     }
      ?>
     <form method="get">
-    <input type='text' placeholder='Search By Name' name='title' style='width:250px; paddding:10px' value='<?php echo $_GET['title']; ?>' />
-    <!-- <input type='hidden'  name='paged' style='width:250px; paddding:10px' value='<?php echo $paged; ?>' /> -->
+    <input type='text' placeholder='Search By Name' name='title' style='width:250px; padding:10px' value='<?php echo $_GET['title']; ?>' />
+    <!-- <input type='hidden'  name='paged' style='width:250px; padding:10px' value='<?php echo $paged; ?>' /> -->
     </form>
          <?php 
           $wpnews = array(
